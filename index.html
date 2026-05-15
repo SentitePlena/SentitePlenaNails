@@ -14,7 +14,7 @@ body {
 
 .container {
   max-width: 420px;
-  width:100%
+  width:100%;
   margin: auto;
 }
 
@@ -70,7 +70,11 @@ button {
   background: #25D366;
   color: white;
 }
-
+.whatsapp:disabled {
+  background: #9adbb0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 .total {
   text-align: center;
   font-size: 26px;
@@ -134,21 +138,23 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
 </small>
   <select id="decoracion" onchange="mostrarImagen()">
     <option value="0" data-img="">Sin decoración</option>
-    <option value="15000" data-img="relieve.jpg">Relieve - $15.000</option>
-    <option value="15000" data-img="carey.jpg">Carey - $15.000</option>
-    <option value="15000" data-img="cromado.jpg">Cromado - $15.000</option>
-    <option value="15000" data-img="cateye.jpg">Cat Eye - $15.000</option>
-    <option value="12000" data-img="blooming.jpg">Blooming - $12.000</option>
-    <option value="10000" data-img="babyboomer.jpg">Baby Boomer - $10.000</option>
-    <option value="10000" data-img="babycolor.jpg">Baby Color - $10.000</option>
-    <option value="8000" data-img="premium.jpg">Mano alzada premium - $8.000</option>
-    <option value="7000" data-img="french.jpg">French - $7.000</option>
-    <option value="7000" data-img="strass.jpg">Strass - $7.000</option>
-    <option value="6000" data-img="express.jpg">Mano alzada express (Flor, Corazon, Puntos) - $6.000</option>
-    <option value="5000" data-img="polvoaura.jpg">Polvo Aura - $5.000</option>
-    <option value="5000" data-img="polvocromadoazul.jpg">Polvo Cromado Azul - $5.000</option>
-    <option value="5000" data-img="polvocromadorojo.jpg">Polvo Cromado Rojo - $5.000</option>
-    <option value="5000" data-img="sticker.jpg">Sticker - $5.000</option>
+    <option value="10000" data-img="animalprint.jpg">Animal Print - $10.000</option>
+<option value="10000" data-img="babyboomer.jpg">Baby Boomer - $10.000</option>
+<option value="10000" data-img="babycolor.jpg">Baby Color - $10.000</option>
+<option value="12000" data-img="blooming.jpg">Blooming - $12.000</option>
+<option value="15000" data-img="carey.jpg">Carey - $15.000</option>
+<option value="15000" data-img="cateye.jpg">Cat Eye - $15.000</option>
+<option value="15000" data-img="cromado.jpg">Cromado - $15.000</option>
+<option value="7000" data-img="french.jpg">French - $7.000</option>
+<option value="10000" data-img="express1.jpg,express2.jpg,express3.jpg"> Mano alzada express (Flor, Corazon, Puntos) - $10.000</option>
+<option value="15000" data-img="marmol.jpg">Marmol - $15.000</option>
+<option value="10000" data-img="polka.jpg">Polka - $10.000</option>
+<option value="5000" data-img="polvoaura.jpg">Polvo Aura - $5.000</option>
+<option value="5000" data-img="polvocromadoazul.jpg">Polvo Cromado Azul - $5.000</option>
+<option value="5000" data-img="polvocromadorojo.jpg">Polvo Cromado Rojo - $5.000</option>
+<option value="15000" data-img="relieve.jpg">Relieve - $15.000</option>
+<option value="5000" data-img="sticker.jpg">Sticker - $5.000</option>
+<option value="7000" data-img="strass.jpg">Strass - $7.000</option>
   </select>
 
   <!-- 👇 FOTO -->
@@ -165,7 +171,19 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
 
 <div class="total" id="resultado"></div>
 
-<button class="whatsapp" onclick="enviarWhatsApp()">Reservar por WhatsApp</button>
+<button class="whatsapp" id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>
+Reservar por WhatsApp
+</button>
+
+<small id="avisoCalculo" style="
+display:block;
+text-align:center;
+margin-top:8px;
+color:#777;
+font-size:13px;
+">
+✨ Primero calculá el total antes de enviar por WhatsApp
+</small>
 
 </div>
 
@@ -179,15 +197,40 @@ function limitar(valor, max) {
 }
 
 function mostrarImagen() {
+
   let select = document.getElementById("decoracion");
-  let img = select.options[select.selectedIndex].getAttribute("data-img");
+
+  let imgs = select.options[select.selectedIndex]
+  .getAttribute("data-img");
 
   let preview = document.getElementById("preview");
 
-  if (img) {
-    preview.innerHTML = "<img src='" + img + "'>";
+  if (imgs) {
+
+    let arrayImgs = imgs.split(",");
+
+    let html = "";
+
+    arrayImgs.forEach(function(img) {
+
+      html += `
+      <img src="${img}" 
+      style="
+      width:100%;
+      border-radius:12px;
+      margin-top:10px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+      ">
+      `;
+
+    });
+
+    preview.innerHTML = html;
+
   } else {
+
     preview.innerHTML = "";
+
   }
 }
 
@@ -240,6 +283,10 @@ function calcular() {
     "Total: $" + total.toLocaleString();
 
   window.detalle = detalle;
+document.getElementById("btnWhatsApp").disabled = false;
+
+document.getElementById("avisoCalculo").innerHTML =
+"✅ Ya podés reservar por WhatsApp";
 }
 
 function enviarWhatsApp() {
