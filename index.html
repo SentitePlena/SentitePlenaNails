@@ -84,11 +84,122 @@ button {
 }
 
 /* 👇 IMAGEN DECORACIÓN */
+#preview {
+  position: relative;
+  margin-top: 10px;
+}
+
 #preview img {
   width: 100%;
   border-radius: 12px;
-  margin-top: 10px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  display: none;
+}
+
+#preview img.active {
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.8);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+/* ✨ ANIMACIÓN RESUMEN */
+
+@keyframes aparecerSuave {
+
+  0%{
+    opacity:0;
+    transform:translateY(15px) scale(0.98);
+  }
+
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.animacion-ok{
+
+  animation: aparecerSuave 0.6s ease;
+
+  transform: scale(1.02);
+
+  border:2px solid #f4a8bc;
+
+  box-shadow:
+  0 0 0 4px rgba(244,168,188,0.18),
+  0 12px 30px rgba(212,93,121,0.25);
+
+  transition: all 0.3s ease;
+}
+/* 🌸 FAQ */
+
+.faq-item{
+  margin-top:12px;
+}
+
+.faq-question{
+
+  background:#fff5f7;
+  color:#d45d79;
+
+  border:none;
+
+  width:100%;
+
+  text-align:left;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.faq-question:hover{
+  background:#fdecef;
+}
+
+.faq-answer{
+
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:max-height 0.4s ease;
+
+  padding:0 10px;
+
+  color:#666;
+
+  line-height:1.6;
+}
+
+.faq-answer.open{
+  max-height:500px;
+  padding:12px 10px;
 }
 </style>
 </head>
@@ -103,17 +214,33 @@ button {
 
 <h2>Calculá tu servicio 💅</h2>
 <button onclick="abrirAyuda()" style="background:#eee; color:#d45d79;">
-  ¿Cómo funciona?
+¿Cómo funciona? / Preguntas Frecuentes 💖
 </button>
 <div class="box">
   <b>Servicio</b>
   <select id="servicio">
-    <option value="16000">Belleza de Manos tradicional - $16.000</option>
-    <option value="20000">Manicuria + Esmaltado semipermanente - $20.000</option>
-    <option value="25000">Kapping + Esmaltado semipermanente  - $25.000</option>
-    <option value="18000">Belleza de Pies tradicional - $18.000</option>
-    <option value="30000">Pedicuría (Incluye exfoliacion, retirado de durezas) - $30.000</option>
-  </select>
+
+<option value="16000">
+Belleza de Manos tradicional - $16.000 ⏰ 30min
+</option>
+
+<option value="20000">
+Manicuria + Esmaltado semipermanente - $20.000 ⏰ 1h
+</option>
+
+<option value="25000">
+Kapping + Esmaltado semipermanente - $25.000 ⏰ 1hs 30min
+</option>
+
+<option value="18000">
+Belleza de Pies tradicional - $18.000 ⏰ 40min
+</option>
+
+<option value="30000">
+Pedicuría - $30.000 ⏰ 1hs (Dependiendo de la complejidad)
+</option>
+
+</select>
 </div>
 
 <div class="box">
@@ -139,11 +266,11 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
   <select id="decoracion" onchange="mostrarImagen()">
     <option value="0" data-img="">Sin decoración</option>
     <option value="10000" data-img="animalprint.jpg">Animal Print - $10.000</option>
-<option value="10000" data-img="babyboomer.jpg">Baby Boomer - $10.000</option>
-<option value="10000" data-img="babycolor.jpg">Baby Color - $10.000</option>
-<option value="12000" data-img="blooming.jpg">Blooming - $12.000</option>
-<option value="15000" data-img="carey.jpg">Carey - $15.000</option>
-<option value="15000" data-img="cateye.jpg">Cat Eye - $15.000</option>
+    <option value="10000" data-img="babyboomer.jpg">Baby Boomer - $10.000</option>
+    <option value="10000" data-img="babycolor.jpg">Baby Color - $10.000</option>
+    <option value="12000" data-img="blooming.jpg">Blooming - $12.000</option>
+    <option value="15000" data-img="carey.jpg">Carey - $15.000</option>
+    <option value="15000" data-img="cateye.jpg">Cat Eye - $15.000</option>
 <option value="15000" data-img="cromado.jpg">Cromado - $15.000</option>
 <option value="7000" data-img="french.jpg">French - $7.000</option>
 <option value="10000" data-img="express1.jpg,express2.jpg,express3.jpg"> Mano alzada express (Flor, Corazon, Puntos) - $10.000</option>
@@ -169,7 +296,22 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
 
 <button class="calcular" onclick="calcular()">Calcular total</button>
 
+<div class="box" id="resumenBox" style="display:none;">
+
+<h3 style="color:#d45d79; margin-top:0;">
+Tu selección 💅
+</h3>
+
+<div id="detallePedido" style="
+white-space:pre-line;
+line-height:1.7;
+font-size:15px;
+">
+</div>
+
 <div class="total" id="resultado"></div>
+
+</div>
 
 <button class="whatsapp" id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>
 Reservar por WhatsApp
@@ -186,7 +328,35 @@ font-size:13px;
 </small>
 
 </div>
+<div class="box">
 
+<h3 style="color:#d45d79; margin-top:0;">
+Disponibilidad de Turnos de la semana del 18 al 23 de mayo⏰
+</h3>
+
+<div style="
+background:#fff5f7;
+padding:14px;
+border-radius:14px;
+line-height:1.8;
+color:#555;
+font-size:15px;
+">
+<b>Lunes 18 de mayo</b> — Completo ❌ <br><br>
+<b>Martes 19 de mayo</b> — Completo ❌ <br><br>
+<b>Miercoles 20 de mayo</b> — Completo ❌ <br><br>
+<b>Jueves 21 de mayo</b> — Completo ❌ <br><br>
+<b>Viernes 22 de mayo</b> — 17:30 a 21:00<br><br>
+
+<b>Sábado 23 de mayo</b> — 13:30 a 17:00<br><br>
+
+<small style="color:#888;">
+✨ La disponibilidad puede modificarse durante el día.
+</small>
+
+</div>
+
+</div>
 <script>
 let totalFinal = 0;
 
@@ -194,6 +364,27 @@ function limitar(valor, max) {
   if (isNaN(valor) || valor < 0) return 0;
   if (valor > max) return max;
   return valor;
+}
+
+let currentSlide = 0;
+
+function cambiarSlide(direccion){
+
+  let slides = document.querySelectorAll("#preview img");
+
+  slides[currentSlide].classList.remove("active");
+
+  currentSlide += direccion;
+
+  if(currentSlide < 0){
+    currentSlide = slides.length - 1;
+  }
+
+  if(currentSlide >= slides.length){
+    currentSlide = 0;
+  }
+
+  slides[currentSlide].classList.add("active");
 }
 
 function mostrarImagen() {
@@ -211,21 +402,31 @@ function mostrarImagen() {
 
     let html = "";
 
-    arrayImgs.forEach(function(img) {
+    arrayImgs.forEach((img, index) => {
 
       html += `
       <img src="${img}" 
-      style="
-      width:100%;
-      border-radius:12px;
-      margin-top:10px;
-      box-shadow:0 6px 15px rgba(0,0,0,0.1);
-      ">
+      class="${index === 0 ? 'active' : ''}">
       `;
 
     });
 
+    if(arrayImgs.length > 1){
+
+      html += `
+      <button class="carousel-btn prev" onclick="cambiarSlide(-1)">
+      ‹
+      </button>
+
+      <button class="carousel-btn next" onclick="cambiarSlide(1)">
+      ›
+      </button>
+      `;
+    }
+
     preview.innerHTML = html;
+
+    currentSlide = 0;
 
   } else {
 
@@ -233,7 +434,6 @@ function mostrarImagen() {
 
   }
 }
-
 function calcular() {
   let total = 0;
 
@@ -279,9 +479,37 @@ function calcular() {
 
   totalFinal = total;
 
-  document.getElementById("resultado").innerText =
-    "Total: $" + total.toLocaleString();
+document.getElementById("resultado").innerText =
+"💲 Total: $" + total.toLocaleString();
 
+document.getElementById("detallePedido").innerText =
+detalle;
+
+document.getElementById("resumenBox").style.display =
+"block";
+let box = document.getElementById("resumenBox");
+
+box.classList.remove("animacion-ok");
+
+box.offsetHeight;
+
+box.classList.add("animacion-ok");
+setTimeout(() => {
+  box.classList.remove("animacion-ok");
+}, 700);
+let sonido = new Audio(
+"https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+);
+
+sonido.volume = 0.25;
+
+sonido.play();
+confetti({
+  particleCount: 40,
+  spread: 70,
+  origin: { y: 0.7 },
+  colors: ['#f7bfd0', '#d45d79', '#ffffff']
+});
   window.detalle = detalle;
 document.getElementById("btnWhatsApp").disabled = false;
 
@@ -290,8 +518,17 @@ document.getElementById("avisoCalculo").innerHTML =
 }
 
 function enviarWhatsApp() {
-  let mensaje = "Hola! 💅 Quiero reservar:\n\n" 
-  + window.detalle + "\n\n💲 Total: $" + totalFinal.toLocaleString();
+let mensaje =
+"Hola 💅✨\n\n" +
+
+"Quiero reservar un turno para:\n\n" +
+
+window.detalle +
+
+"\n\n💲 Total estimado: $" +
+totalFinal.toLocaleString() +
+
+"\n\nGracias 💖";
 
   let url = "https://wa.me/5492216680791?text=" + encodeURIComponent(mensaje);
   window.open(url, "_blank");
@@ -299,53 +536,162 @@ function enviarWhatsApp() {
 function abrirAyuda() {
   document.getElementById("modalAyuda").style.display = "flex";
 }
+function toggleFAQ(button){
 
+  let answer =
+  button.nextElementSibling;
+
+  answer.classList.toggle("open");
+}
 function cerrarAyuda() {
   document.getElementById("modalAyuda").style.display = "none";
 }
-</script>
+let timeout;
 
-</body>
+function calcularDebounced() {
+  clearTimeout(timeout);
+  timeout = setTimeout(calcular, 200);
+}
+
+function activarAutoCalculo() {
+
+  let elementos = [
+    "servicio",
+    "retiro",
+    "retiroUña",
+    "reparacion",
+    "decoracion",
+    "decoUñas"
+  ];
+
+  elementos.forEach(id => {
+    let el = document.getElementById(id);
+
+    if (!el) return;
+
+    let evento = (el.tagName === "SELECT" || el.type === "checkbox")
+      ? "change"
+      : "input";
+
+    el.addEventListener(evento, calcularDebounced);
+  });
+}
+
+activarAutoCalculo();
+</script>
 <div id="modalAyuda" style="
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+z-index:999;
 ">
 
-  <div style="
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  max-width:500px; /* más ancho */
-  width:95%;
-  font-size:16px; /* texto más grande */
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  ">
+<div style="
+background:white;
+padding:30px;
+border-radius:20px;
+max-width:500px;
+width:95%;
+font-size:16px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+max-height:80vh;
+overflow-y:auto;
+">
 
-    <h3 style="color:#d45d79;">¿Cómo funciona? 💅</h3>
+<h3 style="color:#d45d79;">
+¿Cómo funciona? 💅
+</h3>
 
-    <p>
-    • Elegís el servicio<br>
-    • Sumás retiro si necesitás en todas las uñas o por uña<br>
-    • Indicás cantidad de reparaciones<br>
-    • Elegís decoración (opcional)<br>
-    • Si es en pocas uñas la decoración, selecciona cual elegís y luego la cantidad de uñas. Esto se calcula proporcional<br><br>
+<div class="faq-answer open">
 
-    ✨ Al finalizar hace click en Calcular total.
-    </p>
+• Elegís el servicio 💅<br><br>
 
-    <button onclick="cerrarAyuda()" style="background:#d45d79; color:white;">
-      Entendido
-    </button>
+• Sumás retiro si necesitás en todas las uñas o por uña<br><br>
 
-  </div>
+• Indicás cantidad de reparaciones<br><br>
+
+• Elegís decoración (opcional) ✨<br><br>
+
+• Si el diseño es en pocas uñas, elegi el diseño
+seleccionás la cantidad de uñas y se calcula proporcional.<br><br>
+
+• Al finalizar hace Click en <b>Calcular total</b> 💖
 
 </div>
+
+<h3 style="
+color:#d45d79;
+margin-top:25px;
+">
+Preguntas frecuentes 💅
+</h3>
+
+<div class="faq-item">
+
+<button class="faq-question" onclick="toggleFAQ(this)">
+❓ ¿Cuánto duran el esmaltado semipermanente?
+</button>
+
+<div class="faq-answer">
+Entre 15 y 21 días dependiendo del cuidado ✨
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<button class="faq-question" onclick="toggleFAQ(this)">
+❓ ¿Qué medios de pago aceptás?
+</button>
+
+<div class="faq-answer">
+Efectivo, transferencia 💖
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<button class="faq-question" onclick="toggleFAQ(this)">
+❓ ¿Realizás diseños personalizados?
+</button>
+
+<div class="faq-answer">
+Sí ✨ podemos adaptar ideas o crear diseños personalizados.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<button class="faq-question" onclick="toggleFAQ(this)">
+❓ ¿Cuánto demora el servicio?
+</button>
+
+<div class="faq-answer">
+Depende del servicio y diseño elegido 💅
+</div>
+
+</div>
+
+<button onclick="cerrarAyuda()" style="
+background:#d45d79;
+color:white;
+margin-top:20px;
+">
+Entendido 💖
+</button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
 </html>
