@@ -8,7 +8,7 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(180deg, #fff5f7, #fdecef);
-  padding: 20px;
+ padding: 30px 20px;
   color: #4a3f3f;
 }
 
@@ -35,17 +35,19 @@ h2 {
 
 .box {
   background: white;
-  padding: 16px;
-  margin-bottom: 14px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(212,93,121,0.12);
+  padding: 22px;
+  margin-bottom: 22px;
+  border-radius: 22px;
+
+  box-shadow:
+  0 10px 30px rgba(212,93,121,0.10);
 }
 
 select, input {
   width: 100%;
-  padding: 11px;
-  margin-top: 8px;
-  border-radius: 12px;
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 16px;
   border: 1px solid #f1c6cf;
   font-size: 14px;
   box-sizing: border-box; /* 👈 ESTO ES LA CLAVE */
@@ -55,15 +57,30 @@ button {
   width: 100%;
   padding: 15px;
   border: none;
-  border-radius: 14px;
+  border-radius: 18px;
   margin-top: 10px;
   font-weight: bold;
   cursor: pointer;
+
+  transition: 0.3s ease;
 }
 
 .calcular {
-  background: #d45d79;
+
+  background: linear-gradient(
+    135deg,
+    #d45d79,
+    #f191ac
+  );
+
   color: white;
+
+  box-shadow:
+  0 8px 20px rgba(212,93,121,0.25);
+}
+
+.calcular:hover{
+  transform:translateY(-2px);
 }
 
 .whatsapp {
@@ -211,10 +228,40 @@ button {
 <div class="logo">
   <img src="logo.png">
 </div>
+<div style="
+background:white;
+padding:12px;
+border-radius:18px;
+margin-bottom:18px;
+text-align:center;
 
-<h2>Calculá tu servicio 💅</h2>
+box-shadow:
+0 6px 18px rgba(212,93,121,0.08);
+
+font-size:14px;
+color:#666;
+line-height:1.6;
+">
+
+ Más de <b>100 clientas</b> ya eligieron Sentite Plena 💖
+
+</div>
+<h2 style="margin-bottom:8px;">
+Calculá tu servicio 💅
+</h2>
+
+<p style="
+text-align:center;
+color:#8b6f76;
+margin-top:0;
+margin-bottom:25px;
+font-size:15px;
+line-height:1.6;
+">
+✨ Tu momento para desconectar y sentirte plena ✨
+</p>
 <button onclick="abrirAyuda()" style="background:#eee; color:#d45d79;">
-¿Cómo funciona? / Preguntas Frecuentes 💖
+¿Cómo funciona? / Preguntas Frecuentes 
 </button>
 <div class="box">
   <b>Servicio</b>
@@ -266,22 +313,26 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
   <select id="decoracion" onchange="mostrarImagen()">
     <option value="0" data-img="">Sin decoración</option>
     <option value="10000" data-img="animalprint.jpg">Animal Print - $10.000</option>
+    <option value="10000" data-img="aura1.jpg,aura2.jpg">Aura - $10.000</option>
     <option value="10000" data-img="babyboomer.jpg">Baby Boomer - $10.000</option>
     <option value="10000" data-img="babycolor.jpg">Baby Color - $10.000</option>
     <option value="12000" data-img="blooming.jpg">Blooming - $12.000</option>
     <option value="15000" data-img="carey.jpg">Carey - $15.000</option>
-    <option value="15000" data-img="cateye.jpg">Cat Eye - $15.000</option>
-<option value="15000" data-img="cromado.jpg">Cromado - $15.000</option>
-<option value="7000" data-img="french.jpg">French - $7.000</option>
-<option value="10000" data-img="express1.jpg,express2.jpg,express3.jpg"> Mano alzada express (Flor, Corazon, Puntos) - $10.000</option>
-<option value="15000" data-img="marmol.jpg">Marmol - $15.000</option>
-<option value="10000" data-img="polka.jpg">Polka - $10.000</option>
-<option value="5000" data-img="polvoaura.jpg">Polvo Aura - $5.000</option>
-<option value="5000" data-img="polvocromadoazul.jpg">Polvo Cromado Azul - $5.000</option>
-<option value="5000" data-img="polvocromadorojo.jpg">Polvo Cromado Rojo - $5.000</option>
-<option value="15000" data-img="relieve.jpg">Relieve - $15.000</option>
-<option value="5000" data-img="sticker.jpg">Sticker - $5.000</option>
-<option value="7000" data-img="strass.jpg">Strass - $7.000</option>
+    <option value="15000" data-img="cateye1.jpg,cateye2.jpg">Cat Eye - $15.000</option>
+    <option value="15000" data-img="coquette1.jpg,coquette2.jpg">Coquette - $15.000</option>
+    <option value="15000" data-img="cromado.jpg">Cromado - $15.000</option>
+    <option value="7000" data-img="french.jpg">French - $7.000</option>
+    <option value="11000" data-img="doblefrench1.jpg,doblefrench2.jpg">French Doble - $11.000</option>
+    <option value="10000" data-img="express1.jpg,express2.jpg,express3.jpg"> Mano alzada express (Flor, Corazon, Puntos) - $10.000</option>
+    <option value="15000" data-img="marmol.jpg">Marmol - $15.000</option>
+    <option value="5000" data-img="perlado.jpg">Polvo Perlado- $5.000</option>
+    <option value="10000" data-img="polka1.jpg,polka2.jpg">Polka - $10.000</option>
+    <option value="5000" data-img="polvoaura.jpg">Polvo Aura - $5.000</option>
+    <option value="5000" data-img="polvocromadoazul.jpg">Polvo Cromado Azul - $5.000</option>
+    <option value="5000" data-img="polvocromadorojo.jpg">Polvo Cromado Rojo - $5.000</option>
+    <option value="15000" data-img="relieve.jpg">Relieve - $15.000</option>
+    <option value="5000" data-img="sticker.jpg">Sticker - $5.000</option>
+    <option value="7000" data-img="strass.jpg">Strass - $7.000</option>
   </select>
 
   <!-- 👇 FOTO -->
@@ -294,12 +345,12 @@ lo vemos en el momento y te paso el valor según el trabajo 💅
   <small>Se calcula proporcional ✨</small>
 </div>
 
-<button class="calcular" onclick="calcular()">Calcular total</button>
+<button class="calcular" onclick="calcular()">✨ Ver total estimado</button>
 
 <div class="box" id="resumenBox" style="display:none;">
 
 <h3 style="color:#d45d79; margin-top:0;">
-Tu selección 💅
+✨ Tu set ideal
 </h3>
 
 <div id="detallePedido" style="
@@ -314,8 +365,17 @@ font-size:15px;
 </div>
 
 <button class="whatsapp" id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>
-Reservar por WhatsApp
+📲 Reservar turno
 </button>
+<p style="
+text-align:center;
+font-size:13px;
+color:#888;
+margin-top:10px;
+line-height:1.5;
+">
+ Cada servicio está pensado para que disfrutes un momento para vos
+</p>
 
 <small id="avisoCalculo" style="
 display:block;
@@ -514,7 +574,7 @@ confetti({
 document.getElementById("btnWhatsApp").disabled = false;
 
 document.getElementById("avisoCalculo").innerHTML =
-"✅ Ya podés reservar por WhatsApp";
+"💖 Reservá tu ratito de autocuidado";
 }
 
 function enviarWhatsApp() {
@@ -691,7 +751,45 @@ Entendido 💖
 </div>
 
 </div>
+<div class="box">
 
+<h3 style="
+color:#d45d79;
+margin-top:0;
+">
+💖 Lo que dicen las clientas
+</h3>
+
+<div style="
+background:#fff5f7;
+padding:14px;
+border-radius:16px;
+margin-bottom:12px;
+line-height:1.6;
+">
+✨ “Las uñas me duraron hermosas más de 20 días.”
+</div>
+
+<div style="
+background:#fff5f7;
+padding:14px;
+border-radius:16px;
+margin-bottom:12px;
+line-height:1.6;
+">
+💅 “Me sentí súper cómoda y relajada.”
+</div>
+
+<div style="
+background:#fff5f7;
+padding:14px;
+border-radius:16px;
+line-height:1.6;
+">
+🌸 “La atención y los diseños son hermosos.”
+</div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
