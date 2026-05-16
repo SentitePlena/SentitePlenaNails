@@ -26,7 +26,23 @@ body {
 .logo img {
   width: 150px;
 }
+.banner{
+  margin-bottom:25px;
+}
 
+.banner img{
+
+  width:100%;
+
+  border-radius:24px;
+
+  display:block;
+
+  box-shadow:
+  0 10px 30px rgba(212,93,121,0.15);
+
+  object-fit:cover;
+}
 h2 {
   text-align: center;
   color: #d45d79;
@@ -228,38 +244,13 @@ button {
 <div class="logo">
   <img src="logo.png">
 </div>
-<div style="
-background:white;
-padding:12px;
-border-radius:18px;
-margin-bottom:18px;
-text-align:center;
-
-box-shadow:
-0 6px 18px rgba(212,93,121,0.08);
-
-font-size:14px;
-color:#666;
-line-height:1.6;
-">
-
- Más de <b>100 clientas</b> ya eligieron Sentite Plena 💖
-
+<div class="banner">
+  <img src="banner.jpg">
 </div>
 <h2 style="margin-bottom:8px;">
 Calculá tu servicio 💅
 </h2>
 
-<p style="
-text-align:center;
-color:#8b6f76;
-margin-top:0;
-margin-bottom:25px;
-font-size:15px;
-line-height:1.6;
-">
-✨ Tu momento para desconectar y sentirte plena ✨
-</p>
 <button onclick="abrirAyuda()" style="background:#eee; color:#d45d79;">
 ¿Cómo funciona? / Preguntas Frecuentes 
 </button>
@@ -540,8 +531,7 @@ function calcular() {
   totalFinal = total;
 
 document.getElementById("resultado").innerText =
-"💲 Total: $" + total.toLocaleString();
-
+"✨ Inversión estimada: $" + total.toLocaleString();
 document.getElementById("detallePedido").innerText =
 detalle;
 
